@@ -1,0 +1,26 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id "io.swagger.core.v3.swagger-gradle-plugin" version "2.0.8-SNAPSHOT"
+	id 'groovy'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'groovy'
+
+group = 'com.daugherty'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.spockframework:spock-core:1.1-groovy-2.4'
+	testImplementation 'org.codehaus.groovy:groovy-all:2.4.15'
+}
