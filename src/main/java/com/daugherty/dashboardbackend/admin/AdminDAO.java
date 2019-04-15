@@ -21,7 +21,7 @@ public class AdminDAO {
         if (entityExists(tvIdentifier)) {
             adminConfiguration.setBanner("Can't have a banner without some banter | You're welcome, Bronson.");
             adminConfiguration.setSidebar("Here's your stuff, Bronson.");
-            adminConfiguration.setVideoPlaylist("https://vimeo.com/album/5828590/embed");
+            adminConfiguration.setVideoPlaylist("https://vimeo.com/album/4222663/embed/");
         }
         return adminConfiguration;
     }
