@@ -4,6 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 @Component
 public class AdminDAO {
 
@@ -14,15 +19,15 @@ public class AdminDAO {
         AdminConfiguration adminConfiguration = new AdminConfiguration();
         adminConfiguration.setTvIdentifier(tvIdentifier);
         if (entityExists(tvIdentifier)) {
-            adminConfiguration.setBanner("banner");
-            adminConfiguration.setSidebar("sidebar");
-            adminConfiguration.setVideoPlaylist("videoList");
+            adminConfiguration.setBanner("Can't have a banner without some banter | You're welcome, Bronson.");
+            adminConfiguration.setSidebar("Here's your stuff, Bronson.");
+            adminConfiguration.setVideoPlaylist("https://vimeo.com/album/5828590/embed");
         }
         return adminConfiguration;
     }
 
     String saveConfiguration(AdminConfiguration adminConfiguration) {
-        return entityExists(adminConfiguration.getTvIdentifier())?
+        return entityExists(adminConfiguration.getTvIdentifier()) ?
                 updateConfiguration(adminConfiguration) :
                 createConfiguration(adminConfiguration);
     }
@@ -42,5 +47,10 @@ public class AdminDAO {
         //TODO: Connect to Postgres and insert a new configuration
         LOG.info("Created configuration for {}", adminConfiguration.getTvIdentifier());
         return "Created configuration for " + adminConfiguration.getTvIdentifier();
+    }
+
+    private static Connection getConnection() throws URISyntaxException, SQLException {
+        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        return DriverManager.getConnection(dbUrl);
     }
 }

@@ -22,6 +22,8 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.5'
 	implementation 'org.postgresql:postgresql:42.2.5'
 	implementation 'com.mashape.unirest:unirest-java:1.4.9'
+	implementation 'org.springframework.data:spring-data-jpa:2.1.6.RELEASE'
+
 
 	//Needed for testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
