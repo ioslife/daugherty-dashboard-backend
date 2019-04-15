@@ -18,23 +18,17 @@ public class AdminDAO {
         //TODO: Connect to Postgres and create and adminConfiguration from the returned data
         AdminConfiguration adminConfiguration = new AdminConfiguration();
         adminConfiguration.setTvIdentifier(tvIdentifier);
-        if (entityExists(tvIdentifier)) {
-            adminConfiguration.setBanner("Can't have a banner without some banter | You're welcome, Bronson.");
-            adminConfiguration.setSidebar("Here's your stuff, Bronson.");
-            adminConfiguration.setVideoPlaylist("https://vimeo.com/album/4222663/embed/");
-        }
+        getEntity(adminConfiguration);
         return adminConfiguration;
     }
 
     String saveConfiguration(AdminConfiguration adminConfiguration) {
-        return entityExists(adminConfiguration.getTvIdentifier()) ?
-                updateConfiguration(adminConfiguration) :
-                createConfiguration(adminConfiguration);
+        return createConfiguration(adminConfiguration);
     }
 
-    private boolean entityExists(String tvIdentifier) {
+    private boolean getEntity(AdminConfiguration adminConfiguration) {
         //TODO: Connect to Postgres and check to see if the identifier exists
-        return tvIdentifier.equals("atl-dev");
+        return adminConfiguration.getTvIdentifier().equals("atl-dev");
     }
 
     private String updateConfiguration(AdminConfiguration adminConfiguration) {
