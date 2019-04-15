@@ -14,13 +14,13 @@ public class AdminBO {
         this.adminDAO = adminDAO;
     }
 
-    public String getTVConfiguration(String tvIdentifier) {
+    String getTVConfiguration(String tvIdentifier) {
         Gson gson = new Gson();
         AdminConfiguration adminConfiguration = adminDAO.getConfiguration(tvIdentifier);
         return gson.toJson(adminConfiguration);
     }
 
-    public String updateTVConfiguration(AdminConfiguration adminConfiguration) {
+    String updateTVConfiguration(AdminConfiguration adminConfiguration) {
         return adminDAO.saveConfiguration(adminConfiguration);
     }
 }
