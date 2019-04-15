@@ -1,33 +1,39 @@
 package com.daugherty.dashboardbackend.admin;
 
-import com.google.gson.JsonObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@RestController()
+@RestController
 public class AdminController {
+
+    private AdminBO adminBO;
+
+    @Autowired
+    public AdminController(AdminBO adminBO) {
+        this.adminBO = adminBO;
+    }
 
     @GetMapping("/api/v1/admin/")
     public String adminPanelGreeting() {
         return "Welcome to the Daugherty Dashboard admin panel!";
     }
 
-    @GetMapping("/api/v1/admin/getConfig")
+    @GetMapping(value = "/api/v1/admin/getConfig", produces = "application/json")
     public ResponseEntity<String> getConfig(@Valid @NotNull String tvIdentifier) {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("tvIdentifier", tvIdentifier);
-        return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
+        return new ResponseEntity<>(adminBO.getTVConfiguration(tvIdentifier), HttpStatus.OK);
     }
 
-    @PostMapping("/api/v1/admin/updateConfig/")
-    public ResponseEntity<String> updateConfig() {
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+    @PostMapping(value = "/api/v1/admin/updateConfig/", consumes = "application/json")
+    public ResponseEntity<String> updateConfig(@RequestBody AdminConfiguration adminConfiguration) {
+        return new ResponseEntity<>(adminBO.updateTVConfiguration(adminConfiguration), HttpStatus.OK);
     }
 
 }
