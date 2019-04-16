@@ -1,6 +1,7 @@
 package com.daugherty.dashboardbackend.admin
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class AdminConfigurationSpec extends Specification {
 
@@ -31,6 +32,7 @@ class AdminConfigurationSpec extends Specification {
         "banner" | "sidebar" | "tvID"       | "videoPlaylist"
     }
 
+    @Unroll("Ensure getters and setters are working as expected")
     def "Ensure getters and setters are working as expected"() {
         given: "An empty adminConfiguration"
         AdminConfiguration adminConfiguration = new AdminConfiguration()

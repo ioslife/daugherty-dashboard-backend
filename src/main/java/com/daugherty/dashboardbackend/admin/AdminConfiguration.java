@@ -1,7 +1,12 @@
 package com.daugherty.dashboardbackend.admin;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class AdminConfiguration {
 
+    @Id
     private String tvIdentifier;
     private String videoPlaylist;
     private String banner;
@@ -9,6 +14,13 @@ public class AdminConfiguration {
 
     public AdminConfiguration() {
         tvIdentifier = "";
+        videoPlaylist = "";
+        banner = "";
+        sidebar = "";
+    }
+
+    public AdminConfiguration(String tvIdentifier) {
+        this.tvIdentifier = tvIdentifier;
         videoPlaylist = "";
         banner = "";
         sidebar = "";

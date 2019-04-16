@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class AdminBO {
 
@@ -16,11 +18,15 @@ public class AdminBO {
 
     String getTVConfiguration(String tvIdentifier) {
         Gson gson = new Gson();
-        AdminConfiguration adminConfiguration = adminDAO.getConfiguration(tvIdentifier);
-        return gson.toJson(adminConfiguration);
+        Optional<AdminConfiguration> adminConfiguration = adminDAO.findById(tvIdentifier);
+        if (!adminConfiguration.isPresent()) {
+            return gson.toJson(new AdminConfiguration(tvIdentifier));
+        }
+        return gson.toJson(adminConfiguration.get());
     }
 
     String updateTVConfiguration(AdminConfiguration adminConfiguration) {
-        return adminDAO.saveConfiguration(adminConfiguration);
+        adminDAO.save(adminConfiguration);
+        return "Admin Configuration saved successfully for tv " + adminConfiguration.getTvIdentifier();
     }
 }
